@@ -1,12 +1,14 @@
 import partition from './jsSolver.js';
 import Module from './solverWASM.js';
 
+
 const jsRunner = (arr) => {
   const secondsJS = new Date().getTime();
   const result = partition(arr)
   const javascripTime = (new Date().getTime()) - secondsJS;
   return [result, javascripTime];
 }
+
 const cRunner = (array,mymod) => {
   const secondsC = new Date().getTime();
   let arrPtr = makePtrOfArray(mymod, array);
@@ -35,21 +37,27 @@ const makePtrOfArray = (myModule, arr) => {
 const onSubmit = (event) => {
   event.preventDefault();
 
-Module().then((mymod) => {
-  const value = $("#input").val()
-  const array = value.split(",").map(e => +e)
-  const [result, jsTime] = jsRunner(array)
-  const [cResult, cTime] = cRunner(array, mymod)
-  if (cResult) {
-    addToTable([jsTime, cTime])
-  }
-  else {
-    alert('El conjunto no puede ser particionado')
-  }
-})
+  Module().then((mymod) => {
+
+    const value = $("#input").val()
+    const array = value.split(",").map(e => +e)
+    const [cResult, cTime] = cRunner(array, mymod)
+    const [result, jsTime] = jsRunner(array)
+    if (cResult) {
+
+      addToTable([jsTime, cTime])
+    }
+    else {
+      addToTable([jsTime, cTime])
+
+      return alert('El conjunto no puede ser particionado')
+    }
+  })
 }
+
 $(document).ready(function(){
-  $("#button").click(function(){        
-      $("#form").submit(onSubmit); 
+  $("#button").off('click').on('click', function(event) {
+    event.stopImmediatePropagation();
+    $("#form").submit(onSubmit(event)); 
   });
 });
