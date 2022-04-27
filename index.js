@@ -9,9 +9,10 @@ const jsRunner = (arr) => {
 }
 const cRunner = (array,mymod) => {
   const secondsC = new Date().getTime();
-  let arrPtr = makePtrOfArray(mymod, array);
+  const arrPtr = makePtrOfArray(mymod, array);
   const cResult = mymod._Partition(arrPtr, array.length)
   const cTime = (new Date().getTime()) - secondsC;
+  mymod._free(arrPtr);
   return [cResult,cTime];
 }
 
@@ -27,7 +28,7 @@ const addToTable = (resultArr) => {
 const makePtrOfArray = (myModule, arr) => {
   const arrayPtr = myModule._calloc(arr.length, 4);
   arr.forEach((n,i)=> {
-    myModule.setValue(arrayPtr + i * 4, n, "i32");
+    myModule.setValue(arrayPtr + i * 4, n, "i8");
   })
   return arrayPtr;
 }

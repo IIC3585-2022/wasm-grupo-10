@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-int subsetSum(uint32_t *S, int n, int a, int b, int c)
+int subsetSum(uint8_t *S, int n, int a, int b, int c)
 {
   // return true if the subset is found
   if ((a == 0) && (b == 0) && (c == 0))
@@ -39,7 +39,7 @@ int subsetSum(uint32_t *S, int n, int a, int b, int c)
   return A || B || C;
 }
 
-int sum(uint32_t *arr, int length)
+int sum(uint8_t *arr, int length)
 {
   int acc = 0;
   for (int i = 0; i < length; i++)
@@ -49,7 +49,7 @@ int sum(uint32_t *arr, int length)
   return acc;
 }
 
-int Partition(uint32_t *S, int length)
+int Partition(uint8_t *S, int length)
 {
   if (length < 3)
   {
@@ -66,13 +66,15 @@ int Partition(uint32_t *S, int length)
 
 int main()
 {
-  uint32_t *S = malloc(sizeof(uint32_t) * 7);
-  uint32_t arr[7] = {7, 3, 2, 1, 5, 4, 8};
-  for (int i = 0; i < 7; i++)
+  int n = 29;
+  printf("N:%i\n", n);
+  uint8_t *S = malloc(sizeof(uint8_t) * n);
+  uint8_t arr[29] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29};
+  for (int i = 0; i < n; i++)
   {
     S[i] = arr[i];
   }
-  if (Partition(S, 7))
+  if (Partition(S, n))
   {
     printf("%s", "Set can be partitioned");
   }
