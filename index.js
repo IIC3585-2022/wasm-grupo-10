@@ -28,7 +28,7 @@ const addToTable = (resultArr) => {
 const makePtrOfArray = (myModule, arr) => {
   const arrayPtr = myModule._calloc(arr.length, 4);
   arr.forEach((n,i)=> {
-    myModule.setValue(arrayPtr + i * 4, n, "i8");
+    myModule.setValue(arrayPtr + i * 4, n, "i32");
   })
   return arrayPtr;
 }
