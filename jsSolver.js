@@ -32,10 +32,9 @@ const subsetSum = (S, n, a, b, c) => {
     return A || B || C
 } 
  
-    
- const sum = (arr) => {
-   return arr.reduce((partialSum, a) => partialSum + a, 0);
- }  
+const sum = (arr) => {
+  return arr.reduce((partialSum, a) => partialSum + a, 0);
+}  
  
 //Function for solving the 3–partition problem. It returns true if the given
 //set `S[0…n-1]` can be divided into three subsets with an equal sum.

@@ -2,18 +2,19 @@ import partition from './jsSolver.js';
 import Module from './solverWASM.js';
 
 
-const jsRunner = (arr) => {
-  const secondsJS = new Date().getTime();
-  const result = partition(arr)
-  const javascripTime = (new Date().getTime()) - secondsJS;
+function jsRunner(arr) {
+  var secondsJS = performance.now();
+  var result = partition(arr)
+  var seconds2 = performance.now();
+  const javascripTime = seconds2- secondsJS;
   return [result, javascripTime];
 }
 
 const cRunner = (array,mymod) => {
-  const secondsC = new Date().getTime();
+  const secondsC = performance.now();
   let arrPtr = makePtrOfArray(mymod, array);
   const cResult = mymod._Partition(arrPtr, array.length)
-  const cTime = (new Date().getTime()) - secondsC;
+  const cTime = (performance.now()) - secondsC;
   return [cResult,cTime];
 }
 
@@ -43,7 +44,7 @@ const onSubmit = (event) => {
     const array = value.split(",").map(e => +e)
     const [cResult, cTime] = cRunner(array, mymod)
     const [result, jsTime] = jsRunner(array)
-    if (cResult) {
+    if (result) {
 
       addToTable([jsTime, cTime])
     }
